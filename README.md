@@ -33,13 +33,12 @@ $ npm install
 $ npm start
 ```
 
-## Development
+##Testing
 
-Want to contribute? Great!
-
-## Todos
-
- - Write Tests
+```sh
+$ npm install karma-cli -g
+$ karma start -browser firefox
+```
 
 License
 ----
