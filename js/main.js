@@ -43,7 +43,36 @@ angular.module('main', ['n3-pie-chart','apojop'])
    
 
 
-  }); 
+  });
+
+  $scope.cred = {
+     user:"",
+     password:""
+  }
+
+  //invoked on login button of form click
+  $scope.login =  function(){
+      var cred = angular.copy($scope.cred);
+      $http.post('/login',cred).
+      success(function(data, status, headers, config) {
+          if(data.token){ //user loggedin successfully
+            localStorage.token = data.token;
+          }else{
+            //trigger the modal again some internal issue
+            if(!localStorage.token){ //auto trigger if missing
+              $('#login-modal').modal();
+            }
+          }
+      }).
+      error(function(data, status, headers, config) {
+        console.log(data);
+        if(!localStorage.token){ //auto trigger if missing
+          $('#login-modal').modal();
+        }
+      });
+  };
+
+
   $http.get('https://itunes.apple.com/us/rss/toppaidapplications/limit=100/json').
     success(function(data, status, headers, config) {
       for(var i=0;i<data.feed.entry.length;i++){
