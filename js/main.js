@@ -57,11 +57,10 @@ angular.module('main', ['n3-pie-chart','apojop'])
       success(function(data, status, headers, config) {
           if(data.token){ //user loggedin successfully
             localStorage.token = data.token;
+            $('#login-modal').modal('hide');
           }else{
             //trigger the modal again some internal issue
-            if(!localStorage.token){ //auto trigger if missing
-              $('#login-modal').modal();
-            }
+            $('#login-modal').modal();
           }
       }).
       error(function(data, status, headers, config) {
